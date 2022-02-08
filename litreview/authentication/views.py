@@ -5,6 +5,8 @@ from . import forms
 
 from django.contrib.auth import login, authenticate, logout  # import des fonctions login et authenticate
 
+from django.conf import settings
+
 def logout_user(request):
     
     logout(request)
@@ -22,8 +24,18 @@ def login_page(request):
             )
             if user is not None:
                 login(request, user)
-                message = f'Bonjour, {user.username}! Vous êtes connecté.'
             else:
                 message = 'Identifiants invalides.'
     return render(
         request, 'authentication/login.html', context={'form': form, 'message': message})
+
+def signup_page(request):
+    form = forms.SignupForm()
+    if request.method == 'POST':        
+        form = forms.SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # auto-login user
+            login(request, user)
+            return redirect(settings.LOGIN_REDIRECT_URL)
+    return render(request, 'authentication/signup.html', context={'form': form})
