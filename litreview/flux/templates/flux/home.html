@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Flux</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a class="btn btn-primary" href="{% url 'ticket_upload' %}">Demander une critique</a>
+            <a class="btn btn-primary" href="{% url 'review_upload' %}">Créer une critique</a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+<div class='container'>
+    {% for ticket in tickets %}
+    <div class='row'>
+        <div class="card text-center">
+            <div class="card-header">{{ ticket.title }}</div>
+            <img src="{{ ticket.image.url }}" class="img-thumbnail">
+            <div class="card-body">
+                <p class="card-text">{{ ticket.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %} {% endblock content %}

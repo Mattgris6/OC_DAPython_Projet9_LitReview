@@ -1,3 +1,12 @@
 from django.contrib import admin
 
-# Register your models here.
+from authentication.models import *
+
+
+class UserAdmin(admin.ModelAdmin):
+    # liste les champs que nous voulons sur l'affichage de la liste
+    list_display = (['username'])
+    list_filter = (['username'])
+    search_fields = ['username']
+ 
+admin.site.register(User, UserAdmin)
