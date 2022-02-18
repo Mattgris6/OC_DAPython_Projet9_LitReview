@@ -4,7 +4,7 @@
         <div class="col">
             <h2>Inscrivez vous maintenant</h2>
             <form method="post">
-                <button><a href="{% url 'signup' %}">S'inscrire</a></button>
+                <a class="btn btn-primary btn-sm" href="{% url 'signup' %}">S'inscrire</a>
             </form>
         </div>
         <div class="col">
@@ -12,7 +12,7 @@
             <p>{{ message }}</p>
             <form method="post">
                 {{ form.as_p }} {% csrf_token %}
-                <button type="submit">Se connecter</button>
+                <button class="btn btn-primary btn-sm" type="submit">Se connecter</button>
             </form>
         </div>
     </div>
