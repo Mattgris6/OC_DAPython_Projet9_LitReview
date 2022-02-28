@@ -1,5 +1,7 @@
 <div class="d-flex justify-content-between">
-    <div>{{ post.user}} a demandé une critique</div>
+    <div>
+        {% if post.user == user%} Vous avez {% else %} {{ post.user}} a {% endif %} demandé une critique
+    </div>
     <div>{{ post.time_created}}</div>
 </div>
 <div class="card-header">{{ post.title }}</div>
@@ -7,5 +9,12 @@
 <div class="card-body ">
     <p class="card-text">{{ post.description }}</p>
 </div>
-{% if post not in tickets_done %}
-<a class="btn btn-primary" href="{% url 'review_answer' post.id %}" style="width: 10rem;margin-left: auto;">Créer une critique</a> {% endif %}
+{% if post.page_type == 'FLUX' %} {% if post not in tickets_done %}
+<div>
+    <a class="btn btn-primary" href="{% url 'review_answer' post.id %}" style="width: 10rem;margin-left: auto;">Créer une critique</a>
+</div>
+{% endif %} {% elif post.page_type == 'POSTS' %}
+<div style="margin-left: auto;">
+    <a class="btn btn-primary" href="{% url 'ticket_update' post.id %}" style="width: 10rem;">Modifier</a>
+    <a class="btn btn-primary" href="{% url 'ticket_delete' post.id %}" style="width: 10rem;">Supprimer</a>
+</div> {% endif %}

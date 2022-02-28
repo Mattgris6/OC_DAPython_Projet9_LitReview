@@ -29,6 +29,11 @@ urlpatterns = [
     path('review/upload/', flux.views.review_upload, name='review_upload'),
     path('review/<int:ticket_id>/answer/', flux.views.review_answer, name='review_answer'),
     path('', flux.views.home, name='home'),
+    path('posts/', flux.views.own_posts, name='own_posts'),
+    path('ticket/<int:ticket_id>/delete', flux.views.ticket_delete, name='ticket_delete'),
+    path('review/<int:review_id>/delete', flux.views.review_delete, name='review_delete'),
+    path('ticket/<int:ticket_id>/update', flux.views.ticket_update, name='ticket_update'),
+    path('review/<int:review_id>/update', flux.views.review_update, name='review_update'),
 ]
 if settings.DEBUG:
     urlpatterns += static(
