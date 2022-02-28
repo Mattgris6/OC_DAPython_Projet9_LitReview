@@ -10,7 +10,7 @@
     <p class="card-text">{{ post.description }}</p>
 </div>
 {% if post.page_type == 'FLUX' %} {% if post not in tickets_done %}
-<div>
+<div style="margin-left: auto;">
     <a class="btn btn-primary" href="{% url 'review_answer' post.id %}" style="width: 10rem;margin-left: auto;">Créer une critique</a>
 </div>
 {% endif %} {% elif post.page_type == 'POSTS' %}

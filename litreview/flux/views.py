@@ -90,18 +90,23 @@ def ticket_update(request, ticket_id):
 @login_required
 def review_update(request, review_id):
     review = models.Review.objects.get(id=review_id)
+    ticket = review.ticket
     if request.method == 'POST':
-        form = forms.ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            # mettre à jour le groupe existant dans la base de données
-            form.save()
-            # rediriger vers la page détaillée du groupe que nous venons de mettre à jour
+        review_form = forms.ReviewForm(request.POST, instance=review)
+        if review_form.is_valid():
+            # now we can save
+            review.save()
             return redirect('own_posts')
     else:
-        form = forms.ReviewForm(instance=review)
+        review_form = forms.ReviewForm(instance=review)
+    context = {
+        'ticket':ticket,
+        'review_form':review_form,
+    }
+        
     return render(request,
-                    'flux/review_upload.html',
-                    {'form': form})
+                    'flux/review_answer.html',
+                    context)
 
 @login_required
 def ticket_upload(request):
@@ -150,8 +155,6 @@ def review_answer(request, ticket_id):
     if request.method == 'POST':
         review_form = forms.ReviewForm(request.POST)
         if review_form.is_valid():
-            # now we can save
-            ticket.save()
             review = review_form.save(commit=False)
             # set the uploader to the user before saving the model
             review.user = request.user
