@@ -1,0 +1,12 @@
+{% extends 'base.html' %} {% block content %}
+<h2>Créer une critique</h2>
+<form method="post" enctype="multipart/form-data">
+    <div class="card text-center" style="width: 18rem;">
+        <div>Ticket - {{ ticket.user }}</div>
+        <div class="card-header">{{ ticket.title }}</div>
+        <img src="{{ ticket.image.url }}" class="img-thumbnail" style="max-width: 30%; height: auto;">
+    </div>
+    {{ review_form.as_p }} {% csrf_token %}
+    <button type="submit">Publier</button>
+</form>
+{% endblock content %}

@@ -27,6 +27,7 @@ urlpatterns = [
     path('signup/', authentication.views.signup_page, name='signup'),
     path('ticket/upload/', flux.views.ticket_upload, name='ticket_upload'),
     path('review/upload/', flux.views.review_upload, name='review_upload'),
+    path('review/<int:ticket_id>/answer/', flux.views.review_answer, name='review_answer'),
     path('', flux.views.home, name='home'),
 ]
 if settings.DEBUG:

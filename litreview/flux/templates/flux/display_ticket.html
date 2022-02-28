@@ -7,4 +7,5 @@
 <div class="card-body ">
     <p class="card-text">{{ post.description }}</p>
 </div>
-<a class="btn btn-primary" href="{% url 'review_upload' %}" style="width: 10rem;margin-left: auto;">Créer une critique</a>
+{% if post not in tickets_done %}
+<a class="btn btn-primary" href="{% url 'review_answer' post.id %}" style="width: 10rem;margin-left: auto;">Créer une critique</a> {% endif %}
