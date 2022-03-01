@@ -2,7 +2,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from . import forms
 from . import models
-from django.shortcuts import get_object_or_404
 
 from itertools import chain
 

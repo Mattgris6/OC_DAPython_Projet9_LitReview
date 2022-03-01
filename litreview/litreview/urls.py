@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import authentication.views
 import flux.views
+import follow.views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -34,6 +35,7 @@ urlpatterns = [
     path('review/<int:review_id>/delete', flux.views.review_delete, name='review_delete'),
     path('ticket/<int:ticket_id>/update', flux.views.ticket_update, name='ticket_update'),
     path('review/<int:review_id>/update', flux.views.review_update, name='review_update'),
+    path('follow/', follow.views.follow_user, name='follow_manager'),
 ]
 if settings.DEBUG:
     urlpatterns += static(

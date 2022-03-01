@@ -1,0 +1,12 @@
+ {% extends 'base.html' %} {% block content %}{% load widget_tweaks%}
+<h1>Suivre d'autres utilisateurs</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        {% render_field form.user type="text" class="form-control" id="InputUsername" placeholder="Nom utilisateur" %}
+    </div>
+    <button class="btn btn-primary btn-sm" type="submit">Envoyer</button>
+</form>
+
+<h2>Abonnements</h2>
+<h2>Abonnés</h2>{% endblock content %}
