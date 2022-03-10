@@ -3,15 +3,14 @@
 <form method="post">
     {% csrf_token %}
     <div class="form-group">
+        {% render_field form.user type="text" class="form-control" id="InputUsername" placeholder="Nom utilisateur" %}
     </div>
-    {% render_field form.user class="form-control" list="datalistOptions" id="id_user" placeholder="Nom utilisateur" %}
-    <datalist id="datalistOptions">
-    {% for elem in users %}
-    <option value={{elem}}>
-    {% endfor %}
-    </datalist>
     <button class="btn btn-primary btn-sm" type="submit">Envoyer</button>
 </form>
 
 <h2>Abonnements</h2>
-<h2>Abonnés</h2>{% endblock content %}
+{% for user in following_users %}
+<p>{{ user.user }}</p>{% endfor %}
+<h2>Abonnés</h2>
+{% for user in followed_users %}
+<p>{{ user.followed_user }}</p>{% endfor %}{% endblock content %}

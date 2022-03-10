@@ -9,7 +9,8 @@ User=get_user_model()
 @login_required
 def follow_user(request):
     users = User.objects.all()
-    following_users = models.UserFollows.objects.all()
+    following_users = models.UserFollows.objects.filter(followed_user=request.user)
+    followed_users = models.UserFollows.objects.filter(user=request.user)
     form = forms.UserFollowsForm()
     list_of_user = []
     for elem in users:
@@ -29,4 +30,6 @@ def follow_user(request):
                     'follow/follow_manager.html',
                     {'form':form,
                     'users': list_of_user,
+                    'following_users':following_users,
+                    'followed_users':followed_users,
                     })

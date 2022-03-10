@@ -3,8 +3,13 @@
 <form method="post">
     {% csrf_token %}
     <div class="form-group">
-        {% render_field form.user type="text" class="form-control" id="InputUsername" placeholder="Nom utilisateur" %}
     </div>
+    <input class="form-control" list="datalistOptions" id="id_user" placeholder="Nom utilisateur">
+    <datalist id="datalistOptions">
+    {% for elem in users %}
+    <option value={{elem}}>
+    {% endfor %}
+    </datalist>
     <button class="btn btn-primary btn-sm" type="submit">Envoyer</button>
 </form>
 
