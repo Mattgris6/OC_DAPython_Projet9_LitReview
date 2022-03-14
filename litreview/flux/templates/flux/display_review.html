@@ -8,7 +8,7 @@
         <p class="card-text">{{ post.body }}</p>
     </div>
     <div class="card text-center" style="width: 18rem;">
-        <div>Ticket - {% if post.user == user%} Vous {% else %} {{ post.user}} {% endif %} </div>
+        <div>Ticket - {% if post.ticket.user == user%} Vous {% else %} {{ post.ticket.user}} {% endif %} </div>
         <div class="card-header">{{ post.ticket.title }}</div>
         <img src="{{ post.ticket.image.url }}" class="img-thumbnail" style="max-width: 30%; height: auto;">
     </div>

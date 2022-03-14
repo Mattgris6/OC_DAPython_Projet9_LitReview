@@ -1,16 +1,39 @@
  {% extends 'base.html' %} {% block content %}{% load widget_tweaks%}
-<h1>Suivre d'autres utilisateurs</h1>
+<h1 style="text-align:center;">Suivre d'autres utilisateurs</h1>
 <form method="post">
     {% csrf_token %}
-    <div class="form-group">
-        {% render_field form.user type="text" class="form-control" id="InputUsername" placeholder="Nom utilisateur" %}
+    <div class="container" style="margin-left: auto; margin-right: auto;">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    {% render_field form.user type="text" class="form-control" id="InputUsername" placeholder="Nom utilisateur" %}
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <button class="btn btn-primary" type="submit">Envoyer</button>
+            </div>
+        </div>
     </div>
-    <button class="btn btn-primary btn-sm" type="submit">Envoyer</button>
 </form>
 
-<h2>Abonnements</h2>
-{% for user in following_users %}
-<p>{{ user.user }}</p>{% endfor %}
-<h2>Abonnés</h2>
-{% for user in followed_users %}
-<p>{{ user.followed_user }}</p>{% endfor %}{% endblock content %}
+<h2 style="text-align:center;">Abonnements</h2>
+<div class="container" style="margin-left: auto; margin-right: auto;">
+
+    {% for user in following_users %}
+    <div class="row">
+        <div class="col-md-10" style="border: 1px solid black;">
+            <p>{{ user.user }}</p>
+        </div>
+        <div class="col-6 col-md-2" style="border: 1px solid black;">
+            <a class="btn btn-primary" href="{% url 'unfollow' user.id %}">Desabonner</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<h2 style="text-align:center;">Abonnés</h2>
+<div class="container" style="margin-left: auto; margin-right: auto;">
+    {% for user in followed_users %}
+    <div class="row" style="border: 1px solid black;">
+        <p>{{ user.followed_user }}</p>
+    </div>{% endfor %}
+</div>{% endblock content %}

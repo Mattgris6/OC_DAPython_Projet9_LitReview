@@ -5,17 +5,42 @@ from . import models
 
 from itertools import chain
 
-from django.db.models import CharField, Value
+from django.db.models import CharField, Value, Q
+from follow.models import UserFollows
 
+def get_users_viewable_tickets(this_user):
+    usersfollows = UserFollows.objects.filter(followed_user=this_user)
+    user_follow_list = [this_user]
+    for users in usersfollows:
+        user_follow_list.append(users.user)
+    ticket = models.Ticket.objects.all().filter(user__in=user_follow_list)
+    return ticket
+
+def get_users_viewable_reviews(this_user):
+    my_tickets = models.Ticket.objects.filter(user=this_user)
+    usersfollows = UserFollows.objects.filter(followed_user=this_user)
+    user_follow_list = [this_user]
+    for users in usersfollows:
+        user_follow_list.append(users.user)
+    reviews = models.Review.objects.all().filter(
+        Q(user__in=user_follow_list) | Q(ticket__in=my_tickets)
+        )
+    return reviews
 
 @login_required
 def home(request):
-    tickets = models.Ticket.objects.all()
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-    tickets = tickets.annotate(page_type=Value('FLUX', CharField()))
-    reviews = models.Review.objects.all()
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    reviews = reviews.annotate(page_type=Value('FLUX', CharField()))
+    #tickets = models.Ticket.objects.all()
+    tickets = get_users_viewable_tickets(request.user)
+    tickets = tickets.annotate(
+        content_type=Value('TICKET', CharField()),
+        page_type=Value('FLUX', CharField())
+        )
+    #reviews = models.Review.objects.all()
+    reviews = get_users_viewable_reviews(request.user)
+    reviews = reviews.annotate(
+        content_type=Value('REVIEW', CharField()),
+        page_type=Value('FLUX', CharField())
+        )
     tickets_done = [review.ticket for review in reviews]
     posts = sorted(
         chain(reviews, tickets), 

@@ -36,6 +36,7 @@ urlpatterns = [
     path('ticket/<int:ticket_id>/update', flux.views.ticket_update, name='ticket_update'),
     path('review/<int:review_id>/update', flux.views.review_update, name='review_update'),
     path('follow/', follow.views.follow_user, name='follow_manager'),
+    path('follow/<int:follow_id>/delete', follow.views.unfollow, name='unfollow'),
 ]
 if settings.DEBUG:
     urlpatterns += static(
