@@ -10,26 +10,26 @@ User=get_user_model()
 def follow_user(request):
     users = User.objects.all()
     following_users = models.UserFollows.objects.filter(followed_user=request.user).prefetch_related('user')
-    followed_users = models.UserFollows.objects.filter(user=request.user).prefetch_related('followed_user')
-    form = forms.UserFollowsForm()
-    
+    followed_users = models.UserFollows.objects.filter(user=request.user).prefetch_related('followed_user')   
     if request.method == 'POST':
-        form = forms.UserFollowsForm(request.POST)
-        if form.is_valid():
-            new_follower = form.save(commit=False)
-            if new_follower.user != request.user:
-                new_follower.followed_user = request.user
-                # now we can save
-                try:
-                    new_follower.save()
-                except:
-                    pass
-            return redirect('follow_manager')
+        u_name = request.POST.get('id_user', None)
+        u_follower = User.objects.get(username=u_name)
+        if u_follower != request.user:
+            new_followed = models.UserFollows()
+            new_followed.followed_user = request.user
+            new_followed.user = u_follower
+            # now we can save
+            try:
+                new_followed.save()
+            except:
+                pass
+        return redirect('follow_manager')
     return render(request,
                     'follow/follow_manager.html',
-                    {'form':form,
+                    {#'form':form,
                     'following_users':following_users,
                     'followed_users':followed_users,
+                    'users':users,
                     })
 
 def unfollow(request, follow_id):
