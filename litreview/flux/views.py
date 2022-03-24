@@ -8,6 +8,7 @@ from itertools import chain
 from django.db.models import CharField, Value, Q
 from follow.models import UserFollows
 
+
 def get_users_viewable_tickets(this_user):
     usersfollows = UserFollows.objects.filter(followed_user=this_user)
     user_follow_list = [this_user]
@@ -15,6 +16,7 @@ def get_users_viewable_tickets(this_user):
         user_follow_list.append(users.user)
     ticket = models.Ticket.objects.all().filter(user__in=user_follow_list)
     return ticket
+
 
 def get_users_viewable_reviews(this_user):
     my_tickets = models.Ticket.objects.filter(user=this_user)
@@ -27,15 +29,14 @@ def get_users_viewable_reviews(this_user):
         )
     return reviews
 
+
 @login_required
 def home(request):
-    #tickets = models.Ticket.objects.all()
     tickets = get_users_viewable_tickets(request.user)
     tickets = tickets.annotate(
         content_type=Value('TICKET', CharField()),
         page_type=Value('FLUX', CharField())
         )
-    #reviews = models.Review.objects.all()
     reviews = get_users_viewable_reviews(request.user)
     reviews = reviews.annotate(
         content_type=Value('REVIEW', CharField()),
@@ -43,11 +44,11 @@ def home(request):
         )
     tickets_done = [review.ticket for review in reviews]
     posts = sorted(
-        chain(reviews, tickets), 
-        key=lambda post: post.time_created, 
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
         reverse=True
     )
-    context={
+    context = {
         'posts': posts,
         'tickets_done': tickets_done
     }
@@ -64,36 +65,41 @@ def own_posts(request):
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
     reviews = reviews.annotate(page_type=Value('POSTS', CharField()))
     posts = sorted(
-        chain(reviews, tickets), 
-        key=lambda post: post.time_created, 
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
         reverse=True
     )
-    context={
+    context = {
         'posts': posts,
     }
     return render(request, 'flux/own_posts.html', context)
 
+
 @login_required
 def ticket_delete(request, ticket_id):
     ticket = models.Ticket.objects.get(id=ticket_id)
-    
     if request.method == 'POST':
         ticket.delete()
         return redirect('own_posts')
-    return render(request,
-                    'flux/post_delete.html',
-                    {'ticket': ticket})
+    return render(
+        request,
+        'flux/post_delete.html',
+        {'ticket': ticket}
+        )
+
 
 @login_required
 def review_delete(request, review_id):
     review = models.Review.objects.get(id=review_id)
-    
     if request.method == 'POST':
         review.delete()
         return redirect('own_posts')
-    return render(request,
-                    'flux/post_delete.html',
-                    {'review': review}) 
+    return render(
+        request,
+        'flux/post_delete.html',
+        {'review': review}
+        )
+
 
 @login_required
 def ticket_update(request, ticket_id):
@@ -107,9 +113,12 @@ def ticket_update(request, ticket_id):
             return redirect('own_posts')
     else:
         form = forms.TicketForm(instance=ticket)
-    return render(request,
-                    'flux/ticket_upload.html',
-                    {'form': form})
+    return render(
+        request,
+        'flux/ticket_upload.html',
+        {'form': form}
+        )
+
 
 @login_required
 def review_update(request, review_id):
@@ -124,13 +133,15 @@ def review_update(request, review_id):
     else:
         review_form = forms.ReviewForm(instance=review)
     context = {
-        'ticket':ticket,
-        'review_form':review_form,
+        'ticket': ticket,
+        'review_form': review_form,
     }
-        
-    return render(request,
-                    'flux/review_answer.html',
-                    context)
+    return render(
+        request,
+        'flux/review_answer.html',
+        context
+        )
+
 
 @login_required
 def ticket_upload(request):
@@ -145,6 +156,7 @@ def ticket_upload(request):
             ticket.save()
             return redirect('home')
     return render(request, 'flux/ticket_upload.html', context={'form': form})
+
 
 @login_required
 def review_upload(request):
@@ -167,11 +179,12 @@ def review_upload(request):
             review.save()
             return redirect('home')
     context = {
-        'ticket_form':ticket_form,
-        'review_form':review_form,
+        'ticket_form': ticket_form,
+        'review_form': review_form,
     }
     return render(request, 'flux/review_upload.html', context=context)
-        
+
+
 @login_required
 def review_answer(request, ticket_id):
     ticket = models.Ticket.objects.get(id=ticket_id)
@@ -187,8 +200,7 @@ def review_answer(request, ticket_id):
             review.save()
             return redirect('home')
     context = {
-        'ticket':ticket,
-        'review_form':review_form,
+        'ticket': ticket,
+        'review_form': review_form,
     }
     return render(request, 'flux/review_answer.html', context=context)
-        

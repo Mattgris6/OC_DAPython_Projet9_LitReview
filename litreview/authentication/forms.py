@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 class SignupForm(UserCreationForm):
     edit_signup = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
     class Meta(UserCreationForm.Meta):
         model = get_user_model()
         fields = ('username', )
