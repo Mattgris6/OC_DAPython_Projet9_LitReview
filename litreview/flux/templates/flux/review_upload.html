@@ -1,7 +1,24 @@
 {% extends 'base.html' %} {% block content %}
-<h2>Créer une critique</h2>
-<form method="post" enctype="multipart/form-data">
-    {{ ticket_form.as_p }} {{ review_form.as_p }} {% csrf_token %}
-    <button type="submit">Publier</button>
-</form>
+<div class="container">
+    <h2>Créer une critique</h2>
+    <form method="post" enctype="multipart/form-data">
+        <h3>Livre / Article</h3>
+        {{ ticket_form.as_p }}
+        <h3>Critique</h3>
+        <div>Titre : {{ review_form.headline }}</div>
+        <div>Note :</div>
+        <div class="container">
+            <div class="row">{% for radio in review_form.rating %}
+                <div class="col">
+                    {{ radio }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div>Commentaire : </div>
+        <div>{{ review_form.body }}</div>{% csrf_token %}
+        <button class="btn btn-primary" type="submit">Publier</button>
+    </form>
+</div>
 {% endblock content %}

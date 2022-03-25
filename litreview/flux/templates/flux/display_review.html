@@ -3,7 +3,7 @@
         <div>{% if post.user == user%} Vous avez {% else %} {{ post.user}} a {% endif %} a publié une critique</div>
         <div>{{ post.time_created}}</div>
     </div>
-    <div class="card-header">{{ post.headline }} - {{ post.rating }}</div>
+    <div class="card-header">{{ post.headline }} - {{ post.rating }}★</div>
     <div class="card-body">
         <p class="card-text">{{ post.body }}</p>
     </div>

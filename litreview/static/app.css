@@ -1,3 +1,7 @@
 html {
     background-color: white;
 }
+
+li {
+    width: 10%;
+}
