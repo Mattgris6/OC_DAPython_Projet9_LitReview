@@ -38,14 +38,17 @@ _**Le mot de passe est toujours OcR2022!**_
 ### Fonctionnalités
 Une fois connecté, la barre de navigation en haut à droite permet d'accéder aux différentes fonctionnalités de l'application
 
-_**Flux**
+_**Flux**_
+
 Page d'accueil, vous trouverez ici les tickets et critiques que vous postez ou que vos amis postent, et les réponses à vos tickets.
 C'est ici que vous pouvez créer de nouveaux tickets ou de nouvelles critiques, ou encore de répondre à des tickets.
 
-_**Posts**
+_**Posts**_
+
 Vous trouverez sur cette page tous vos posts et pourrez les modifier ou les supprimer.
 
-_**Abonnements**
+_**Abonnements**_
+
 Gérez ici les abonnements aux autres utilisateurs: visualisez qui vous suit et qui vous suivez déjà.
 
 ## Vérification du code
