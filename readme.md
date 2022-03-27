@@ -1,11 +1,4 @@
-_**LITReview**_
-
-_**L'application est développée avec Django. Le projet Django litreview a trois applications:**_
-1. authentication
-2. flux
-3. follow
-
-_**Les données sont sauvées dans la base de données db.sqlite3**_
+## LITReview
 
 ## Installation
 * Python 3 doit-etre installé.
@@ -14,6 +7,13 @@ _**Les données sont sauvées dans la base de données db.sqlite3**_
 * Créer un environnement virtuel `python -m venv env`
 * Activer l'environnement virtuel `env\Scripts\activate.bat`
 * Installer les bibliothèques externes de Python `pip install -r requirements.txt`
+
+_**L'application est développée avec Django. Le projet Django litreview a trois applications:**_
+1. authentication
+2. flux
+3. follow
+
+_**Les données sont sauvées dans la base de données db.sqlite3**_
 
 ## Utilisation
 * Activer l'environnement virtuel `env\Scripts\activate.bat`
@@ -26,3 +26,24 @@ _**Les données sont sauvées dans la base de données db.sqlite3**_
 >Mot de passe : OcR2022!
 >
 * Pour créer un nouvel administrateur dans le terminal `python manage.py createsuperuser`
+
+_**Liste des autres utilisateurs de demonstration déjà créés**_
+* MattGris
+* Pierre
+* toto
+* EloCot
+
+_**Le mot de passe est toujours OcR2022!**_
+
+### Fonctionnalités
+Une fois connecté, la barre de navigation en haut à droite permet d'accéder aux différentes fonctionnalités de l'application
+
+_**Flux**_
+Page d'accueil, vous trouverez ici les tickets et critiques que vous postez ou que vos amis postent, et les réponses à vos tickets.
+C'est ici que vous pouvez créer de nouveaux tickets ou de nouvelles critiques, ou encore de répondre à des tickets.
+
+_**Posts**_
+Vous trouverey sur cette page tous vos posts et pourrez les modifier ou les supprimer.
+
+_**Abonnements**_
+Gérez ici les abonnements aux autres utilisateurs: visualisez qui vous suit et qui vous suivez déjà.
