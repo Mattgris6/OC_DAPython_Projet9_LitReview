@@ -1,6 +1,6 @@
 <div>
     <div class="d-flex justify-content-between">
-        <div>{% if post.user == user%} Vous avez {% else %} {{ post.user}} a {% endif %} a publié une critique</div>
+        <div>{% if post.user == user%} Vous avez {% else %} {{ post.user}} a {% endif %} publié une critique</div>
         <div>{{ post.time_created}}</div>
     </div>
     <div class="card-header">{{ post.headline }} - {{ post.rating }}★</div>
