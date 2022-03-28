@@ -21,7 +21,7 @@
         </div>
 
         <div>Commentaire : </div>
-        <div>{{ review_form.body }}</div>{% csrf_token %}
+        <div>{{ review_form.body }}</div>{{review_form.edit_review}}{% csrf_token %}
         <button type="submit">Publier</button>
     </form>
 </div>

@@ -126,6 +126,7 @@ def review_update(request, review_id):
     ticket = review.ticket
     if request.method == 'POST':
         review_form = forms.ReviewForm(request.POST, instance=review)
+        print(review_form.errors)
         if review_form.is_valid():
             # now we can save
             review.save()
